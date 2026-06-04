@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalGhost - Design & Software</title>
+    <meta name="description" content="LocalGhost creates thoughtfully designed graphics, apparel, and boutique software. Quality over quantity.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --lg-bg-dark: #121212;
+            --lg-bg-card: #1a1a1a;
+            --lg-bg-elevated: #252225;
+            --lg-accent: #FCE477;
+            --lg-accent-hover: #fdd835;
+            --lg-text: #ffffff;
+            --lg-text-muted: #a0a0a0;
+            --lg-border: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--lg-bg-dark);
+            color: var(--lg-text);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--lg-border);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--lg-text) !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-brand .ghost-icon {
+            font-size: 1.75rem;
+        }
+
+        .nav-link {
+            color: var(--lg-text-muted) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--lg-accent) !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 1rem;
+            position: relative;
+            background: radial-gradient(ellipse at center, var(--lg-bg-elevated) 0%, var(--lg-bg-dark) 70%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(252, 228, 119, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-ghost {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            color: var(--lg-accent);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--lg-text-muted);
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* Buttons */
+        .btn-accent {
+            background-color: var(--lg-accent);
+            color: var(--lg-bg-dark);
+            border: none;
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--lg-accent-hover);
+            color: var(--lg-bg-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(252, 228, 119, 0.25);
+        }
+
+        .btn-outline-light {
+            border: 1px solid var(--lg-border);
+            color: var(--lg-text);
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-light:hover {
+            border-color: var(--lg-accent);
+            color: var(--lg-accent);
+            background: transparent;
+        }
+
+        /* Product Cards */
+        .products-section {
+            padding: 6rem 0;
+            background-color: var(--lg-bg-dark);
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--lg-accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--lg-text-muted);
+            font-size: 1.125rem;
+            max-width: 600px;
+        }
+
+        .product-card {
+            background-color: var(--lg-bg-card);
+            border: 1px solid var(--lg-border);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            border-color: var(--lg-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-icon {
+            width: 64px;
+            height: 64px;
+            background-color: var(--lg-bg-elevated);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-icon i {
+            font-size: 1.75rem;
+            color: var(--lg-accent);
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-card p {
+            color: var(--lg-text-muted);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .product-tag {
+            display: inline-block;
+            background-color: var(--lg-bg-elevated);
+            color: var(--lg-text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--lg-accent);
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: auto;
+            transition: gap 0.2s ease;
+        }
+
+        .product-link:hover {
+            color: var(--lg-accent-hover);
+            gap: 0.75rem;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 6rem 0;
+            background-color: var(--lg-bg-card);
+            border-top: 1px solid var(--lg-border);
+            border-bottom: 1px solid var(--lg-border);
+        }
+
+        .about-content {
+            max-width: 700px;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: var(--lg-text-muted);
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--lg-bg-dark);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--lg-border);
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-desc {
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+            max-width: 300px;
+        }
+
+        .footer-heading {
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            color: var(--lg-text);
+        }
+
+        .footer-link {
+            display: block;
+            color: var(--lg-text-muted);
+            text-decoration: none;
+            padding: 0.25rem 0;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--lg-accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--lg-border);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-legal a {
+            color: var(--lg-text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--lg-accent);
+        }
+
+        /* Coming Soon Badge */
+        .badge-coming-soon {
+            background-color: var(--lg-bg-elevated);
+            color: var(--lg-accent);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--lg-text-muted);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-8px); }
+            60% { transform: translateX(-50%) translateY(-4px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 8rem 1rem 4rem;
+            }
+
+            .products-section, .about-section {
+                padding: 4rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="ghost-icon">👻</span>
+                <span>localghost</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="polter/index.html">Polter</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://thelocalghost.myshopify.com/">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container position-relative">
+            <div class="hero-ghost">👻</div>
+            <h1>Design & <span>Software</span></h1>
+            <p>Thoughtfully crafted graphics, apparel, and boutique software. Quality over quantity.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="#products" class="btn btn-accent">Explore</a>
+                <a href="https://thelocalghost.myshopify.com/" class="btn btn-outline-light">Visit Shop</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="bi bi-chevron-down fs-4"></i>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="text-center mb-5">
+                <p class="section-title">What We Make</p>
+                <h2 class="section-heading">Products</h2>
+                <p class="section-desc mx-auto">From digital wallpapers to desktop software, everything is designed with care.</p>
+            </div>
+            <div class="row g-4">
+                <!-- Shop Card -->
+                <div class="col-md-6">
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="bi bi-palette"></i>
+                        </div>
+                        <h3>Design Shop</h3>
+                        <p>Curated collection of apparel, wallpapers, and graphic designs. Minimalist aesthetic for those who appreciate thoughtful design.</p>
+                        <div class="mb-3">
+                            <span class="product-tag">Apparel</span>
+                            <span class="product-tag">Wallpapers</span>
+                            <span class="product-tag">Graphics</span>
+                        </div>
+                        <a href="https://thelocalghost.myshopify.com/" class="product-link">
+                            Browse Shop <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Polter Card -->
+                <div class="col-md-6">
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="bi bi-folder-symlink"></i>
+                        </div>
+                        <h3>Polter</h3>
+                        <p>File automation that works. Set rules once, and Polter organizes your files automatically. Available for Windows, macOS, and Linux.</p>
+                        <div class="mb-3">
+                            <span class="product-tag">Desktop App</span>
+                            <span class="product-tag">Automation</span>
+                            <span class="product-tag">Cross-Platform</span>
+                        </div>
+                        <a href="polter/index.html" class="product-link">
+                            Learn More <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blog Card — Latest Post -->
+                <div class="col-md-6">
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="bi bi-journal-text"></i>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <h3 class="mb-0">Blog</h3>
+                            <span class="product-tag">New Post</span>
+                        </div>
+                        <p style="font-size:0.8rem; opacity:0.6; margin-bottom:0.5rem;">June 2026</p>
+                        <p><strong>Polter Is Live</strong> — We just shipped Polter, a desktop file automation tool for Windows. Set rules once, and Polter handles the rest. One-time purchase, no subscriptions, no cloud, no nonsense.</p>
+                        <div class="mb-3">
+                            <span class="product-tag">Design</span>
+                            <span class="product-tag">Dev</span>
+                            <span class="product-tag">Release</span>
+                        </div>
+                        <a href="polter/index.html" class="product-link">
+                            Read More <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mailing List Card -->
+                <div class="col-md-6">
+                    <div class="product-card">
+                        <div class="product-icon">
+                            <i class="bi bi-envelope-paper"></i>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <h3 class="mb-0">More Coming Soon</h3>
+                        </div>
+                        <p>Stay in the loop on upcoming tools and releases. Small, focused apps that do one thing really well — straight to your inbox.</p>
+                        <form onsubmit="handleMailingListSubmit(event)" class="mt-3">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="your@email.com" required style="background:#1a1a2e; border-color:#333; color:#fff;">
+                                <button class="btn btn-outline-light" type="submit">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="about-content">
+                        <p class="section-title">About</p>
+                        <h2>Small studio, big ideas.</h2>
+                        <p>LocalGhost is an independent studio focused on creating thoughtfully designed products. We believe in quality over quantity&mdash;whether it's a desktop wallpaper or a piece of software.</p>
+                        <p>Every product we make is something we'd want to use ourselves. No bloat, no unnecessary features, just clean design and solid functionality.</p>
+                        <p class="mb-0" style="color: var(--lg-accent);">👻 Thanks for stopping by.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="footer-brand">
+                        <span>👻</span> localghost
+                    </div>
+                    <p class="footer-desc">Design & software studio. Quality over quantity.</p>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">Products</h6>
+                    <a href="https://thelocalghost.myshopify.com/" class="footer-link">Design Shop</a>
+                    <a href="polter/index.html" class="footer-link">Polter</a>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">Support</h6>
+                    <a href="mailto:support@localghost.store" class="footer-link">Contact</a>
+                    <a href="https://github.com/localghost" class="footer-link">GitHub</a>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">Legal</h6>
+                    <a href="polter/index.html#terms" class="footer-link">Terms of Service</a>
+                    <a href="polter/index.html#privacy" class="footer-link">Privacy Policy</a>
+                    <a href="polter/index.html#refund" class="footer-link">Refund Policy</a>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">Connect</h6>
+                    <a href="https://github.com/localghost" class="footer-link"><i class="bi bi-github me-2"></i>GitHub</a>
+                    <a href="https://twitter.com/localghost" class="footer-link"><i class="bi bi-twitter-x me-2"></i>Twitter</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LocalGhost. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Smooth scrolling -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

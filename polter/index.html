@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polter - File Automation That Works | LocalGhost</title>
+    <meta name="description" content="Polter is a desktop application that automatically organizes your files based on custom rules. Set it once, organize forever.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --lg-bg-dark: #121212;
+            --lg-bg-card: #1a1a1a;
+            --lg-bg-elevated: #252225;
+            --lg-accent: #FCE477;
+            --lg-accent-hover: #fdd835;
+            --lg-text: #ffffff;
+            --lg-text-muted: #a0a0a0;
+            --lg-border: #333333;
+            --lg-success: #4ade80;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--lg-bg-dark);
+            color: var(--lg-text);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--lg-border);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--lg-text) !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            color: var(--lg-text-muted) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--lg-accent) !important;
+        }
+
+        /* Buttons */
+        .btn-accent {
+            background-color: var(--lg-accent);
+            color: var(--lg-bg-dark);
+            border: none;
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--lg-accent-hover);
+            color: var(--lg-bg-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(252, 228, 119, 0.25);
+        }
+
+        .btn-outline-light {
+            border: 1px solid var(--lg-border);
+            color: var(--lg-text);
+            padding: 0.875rem 2rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+
+        .btn-outline-light:hover {
+            border-color: var(--lg-accent);
+            color: var(--lg-accent);
+            background: transparent;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 5rem;
+            position: relative;
+            background: radial-gradient(ellipse at 30% 20%, rgba(252, 228, 119, 0.06) 0%, transparent 50%),
+                        var(--lg-bg-dark);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            color: var(--lg-accent);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--lg-text-muted);
+            max-width: 550px;
+            margin-bottom: 2rem;
+        }
+
+        .badge-platform {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--lg-bg-elevated);
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid var(--lg-border);
+        }
+
+        .screenshot-container {
+            background-color: var(--lg-bg-card);
+            border: 1px solid var(--lg-border);
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, var(--lg-bg-elevated) 0%, var(--lg-bg-card) 100%);
+            border-radius: 0.5rem;
+            padding: 3rem;
+            text-align: center;
+            color: var(--lg-text-muted);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-alt {
+            background-color: var(--lg-bg-card);
+            border-top: 1px solid var(--lg-border);
+            border-bottom: 1px solid var(--lg-border);
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--lg-accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-heading {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--lg-text-muted);
+            font-size: 1.125rem;
+            max-width: 600px;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background-color: var(--lg-bg-card);
+            border: 1px solid var(--lg-border);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .section-alt .feature-card {
+            background-color: var(--lg-bg-dark);
+        }
+
+        .feature-card:hover {
+            border-color: var(--lg-accent);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--lg-bg-elevated);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon i {
+            font-size: 1.25rem;
+            color: var(--lg-accent);
+        }
+
+        .feature-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--lg-text-muted);
+            font-size: 0.9375rem;
+            margin-bottom: 0;
+        }
+
+        /* How It Works */
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--lg-accent);
+            color: var(--lg-bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background-color: var(--lg-bg-card);
+            border: 1px solid var(--lg-accent);
+            border-radius: 1rem;
+            overflow: hidden;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .pricing-header {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(252, 228, 119, 0.1) 0%, transparent 100%);
+            border-bottom: 1px solid var(--lg-border);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--lg-text);
+        }
+
+        .price-period {
+            color: var(--lg-text-muted);
+            font-size: 1rem;
+        }
+
+        .pricing-body {
+            padding: 2rem;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.875rem;
+            color: var(--lg-text-muted);
+            font-size: 0.9375rem;
+        }
+
+        .pricing-feature i {
+            color: var(--lg-success);
+            font-size: 1rem;
+        }
+
+        /* Download Cards */
+        .download-card {
+            background-color: var(--lg-bg-card);
+            border: 1px solid var(--lg-border);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .download-card:hover {
+            border-color: var(--lg-accent);
+        }
+
+        .download-card i.platform-icon {
+            font-size: 2.5rem;
+            color: var(--lg-accent);
+            margin-bottom: 1rem;
+        }
+
+        .download-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .download-card p {
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Use Cases */
+        .use-case {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .use-case-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .use-case h5 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .use-case p {
+            color: var(--lg-text-muted);
+            font-size: 0.8125rem;
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--lg-bg-dark);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--lg-border);
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-desc {
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+            max-width: 300px;
+        }
+
+        .footer-heading {
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            color: var(--lg-text);
+        }
+
+        .footer-link {
+            display: block;
+            color: var(--lg-text-muted);
+            text-decoration: none;
+            padding: 0.25rem 0;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--lg-accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--lg-border);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-legal a {
+            color: var(--lg-text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--lg-accent);
+        }
+
+        /* Modal styles for legal content */
+        .modal-content {
+            background-color: var(--lg-bg-card);
+            border: 1px solid var(--lg-border);
+            border-radius: 1rem;
+        }
+
+        .modal-header {
+            border-bottom-color: var(--lg-border);
+            padding: 1.5rem;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            border-top-color: var(--lg-border);
+            padding: 1rem 1.5rem;
+        }
+
+        .btn-close-white {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+
+        .legal-content {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .legal-content h2 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--lg-text);
+        }
+
+        .legal-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .legal-content h3 {
+            font-size: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--lg-text-muted);
+        }
+
+        .legal-content p, .legal-content li {
+            color: var(--lg-text-muted);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+        }
+
+        .legal-content ul {
+            padding-left: 1.25rem;
+        }
+
+        .legal-content table {
+            width: 100%;
+            margin: 1rem 0;
+            border-collapse: collapse;
+        }
+
+        .legal-content th, .legal-content td {
+            padding: 0.75rem;
+            border: 1px solid var(--lg-border);
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+        }
+
+        .legal-content th {
+            background-color: var(--lg-bg-elevated);
+            color: var(--lg-text);
+        }
+
+        .legal-content a {
+            color: var(--lg-accent);
+        }
+
+        /* Scroll margin for anchor links */
+        section[id] {
+            scroll-margin-top: 100px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 7rem 0 3rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-38ZVSY9P7H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-38ZVSY9P7H');
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span>Polter</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" style="visibility:hidden;">
+                    <li class="nav-item"><a class="nav-link active" href="Polter.html">Polter</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://thelocalghost.myshopify.com/">Merch</a></li>
+                </ul>
+                <a href="#download" class="btn btn-outline-light ms-lg-3 mt-3 mt-lg-0">Free Trial</a>
+                <a href="https://localghost.lemonsqueezy.com/checkout/buy/142a2133-02fa-4e77-b3a8-8da344eb64f0" class="btn btn-accent ms-lg-3 mt-3 mt-lg-0">Buy Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <p class="section-title">Introducing</p>
+                    <h1>File Automation<br><span>That Works</span></h1>
+                    <p>Set rules once. Polter organizes everything automatically. 2-week free trial — no credit card required. Stop wasting time manually sorting files and let intelligent automation do the work.</p>
+                    <div class="d-flex flex-wrap gap-3 mb-4">
+                        <a href="https://localghost.lemonsqueezy.com/checkout/buy/142a2133-02fa-4e77-b3a8-8da344eb64f0" class="btn btn-accent">
+                            <i class="bi bi-cart-fill me-2"></i>Get Polter - $24
+                        </a>
+                        <a href="#features" class="btn btn-outline-light">
+                            Learn More
+                        </a>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge-platform"><i class="bi bi-windows"></i> Windows</span>
+                        <span class="badge-platform"><i class="bi bi-apple"></i> macOS</span>
+                        <span class="badge-platform"><i class="bi bi-ubuntu"></i> Linux</span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="screenshot-container">
+                        <img src="Product_Screenshot_Hero.png" alt="Product screenshot hero" class="w-100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section section-alt" id="features">
+        <div class="container">
+            <div class="text-center mb-5">
+                <p class="section-title">Features</p>
+                <h2 class="section-heading">Everything you need</h2>
+                <p class="section-desc mx-auto">Powerful file automation without the complexity</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-bullseye"></i></div>
+                        <h4>Intelligent Rules Engine</h4>
+                        <p>Create rules with multiple conditions: file type, name patterns, size, age. Use wildcards and negative conditions for precise control.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-eye"></i></div>
+                        <h4>Real-Time Monitoring</h4>
+                        <p>Watch files get organized as they arrive. Live activity feed shows every operation with detailed metrics.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+                        <h4>Conflict Resolution</h4>
+                        <p>Smart duplicate handling: skip, overwrite, keep both, use newest, or use largest. Your data stays protected.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-folder2-open"></i></div>
+                        <h4>Rule Sets</h4>
+                        <p>Group related rules into sets. Enable or disable entire sets with one click. Drag-and-drop management.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-robot"></i></div>
+                        <h4>AI Assistant</h4>
+                        <p>Optional AI-powered rule suggestions. Works with OpenAI, Anthropic, or local Ollama. Describe what you want in plain English.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="bi bi-clock-history"></i></div>
+                        <h4>Comprehensive Logging</h4>
+                        <p>Detailed history of every operation. Track what was moved, when, and why. Filter and search your activity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <div class="text-center mb-5">
+                <p class="section-title">How It Works</p>
+                <h2 class="section-heading">Three simple steps</h2>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="d-flex gap-3">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h4 class="mb-2">Create Rules</h4>
+                            <p class="text-muted mb-0">Define what files to match and where they go. Use the visual builder or AI assistant.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex gap-3">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h4 class="mb-2">Select Folders</h4>
+                            <p class="text-muted mb-0">Choose folders to monitor. Add ignored patterns to protect important directories.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex gap-3">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h4 class="mb-2">Relax</h4>
+                            <p class="text-muted mb-0">Polter runs in the background, organizing files automatically as they appear.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="text-center mb-5">
+                <p class="section-title">Use Cases</p>
+                <h2 class="section-heading">Perfect for</h2>
+            </div>
+            <div class="row g-3">
+                <div class="col-6 col-md-3">
+                    <div class="use-case">
+                        <div class="use-case-icon"><i class="bi bi-code-slash" style="color: var(--lg-accent);"></i></div>
+                        <h5>Developers</h5>
+                        <p>Auto-ignore dev folders, organize downloads</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="use-case">
+                        <div class="use-case-icon"><i class="bi bi-camera" style="color: var(--lg-accent);"></i></div>
+                        <h5>Photographers</h5>
+                        <p>Sort images by date, type, or project</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="use-case">
+                        <div class="use-case-icon"><i class="bi bi-play-btn" style="color: var(--lg-accent);"></i></div>
+                        <h5>Content Creators</h5>
+                        <p>Organize media assets automatically</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="use-case">
+                        <div class="use-case-icon"><i class="bi bi-briefcase" style="color: var(--lg-accent);"></i></div>
+                        <h5>Professionals</h5>
+                        <p>Sort documents, invoices, contracts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="text-center mb-5">
+                <p class="section-title">Pricing</p>
+                <h2 class="section-heading">Simple, one-time purchase</h2>
+                <p class="section-desc mx-auto">No subscriptions. Pay once, use forever.</p>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="mb-2">Polter License</h3>
+                    <div class="price">$24<span class="price-period"> / one-time</span></div>
+                    <p class="text-muted mb-0">Lifetime access with free updates</p>
+                </div>
+                <div class="pricing-body">
+                    <div class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>Unlimited automation rules</span></div>
+                    <div class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>Real-time file monitoring</span></div>
+                    <div class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>Rule sets & organization</span></div>
+                    <div class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>AI-powered rule suggestions</span></div>
+                    <div class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>Multi-device activation</span></div>
+                    <div class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>Priority support</span></div>
+                    <div class="pricing-feature"><i class="bi bi-check-circle-fill"></i><span>Free lifetime updates</span></div>
+                    <a href="https://localghost.lemonsqueezy.com/checkout/buy/142a2133-02fa-4e77-b3a8-8da344eb64f0" class="btn btn-accent w-100 mt-3">
+                        <i class="bi bi-cart-fill me-2"></i>Purchase Now
+                    </a>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-muted small">
+                    <i class="bi bi-shield-lock me-1"></i>Secure checkout powered by LemonSqueezy
+                    <span class="mx-2">|</span>
+                    <a href="#" class="text-muted" data-bs-toggle="modal" data-bs-target="#refundModal">30-day money-back guarantee</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="section section-alt" id="download">
+        <div class="container">
+            <div class="text-center mb-5">
+                <p class="section-title">Download</p>
+                <p style="color:#a0a0a0;margin-top:-0.5rem;">2-week free trial. No credit card required.</p>
+                <p style="margin-top:1rem;"><a href="https://github.com/firepig/polter-releases/releases" style="color:#a0a0a0;font-size:0.85rem;">📋 See all releases and .deb packages →</a></p>
+                <h2 class="section-heading">Get Polter</h2>
+                <p class="section-desc mx-auto">Available for all major platforms</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="download-card">
+                        <i class="bi bi-windows platform-icon"></i>
+                        <h4>Windows</h4>
+                        <p>Windows 10 or later</p>
+                        <a href="https://github.com/firepig/polter-releases/releases/latest/download/polter-setup.exe" class="btn btn-outline-light w-100">
+                            <i class="bi bi-download me-2"></i>Download .exe
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="download-card">
+                        <i class="bi bi-apple platform-icon"></i>
+                        <h4>macOS</h4>
+                        <p>macOS 10.15 or later · Coming soon</p>
+                        <a href="#" class="btn btn-outline-light w-100 disabled" style="opacity:0.5">
+                            <i class="bi bi-hourglass-split me-2"></i>Coming Soon — macOS
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="download-card">
+                        <i class="bi bi-ubuntu platform-icon"></i>
+                        <h4>Linux</h4>
+                        <p>Ubuntu 20.04 or compatible</p>
+                        <a href="https://github.com/firepig/polter-releases/releases/latest/download/polter.AppImage" class="btn btn-outline-light w-100">
+                            <i class="bi bi-download me-2"></i>Download .AppImage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container text-center">
+            <h2 class="section-heading mb-3">Ready to get organized?</h2>
+            <p class="section-desc mx-auto mb-4">Join users who've automated their file management</p>
+            <a href="https://localghost.lemonsqueezy.com/checkout/buy/142a2133-02fa-4e77-b3a8-8da344eb64f0" class="btn btn-accent btn-lg">
+                <i class="bi bi-cart-fill me-2"></i>Get Polter Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="footer-brand"><span>👻</span> localghost</div>
+                    <p class="footer-desc">Design & software studio. Quality over quantity.</p>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">Product</h6>
+                    <a href="#features" class="footer-link">Features</a>
+                    <a href="#pricing" class="footer-link">Pricing</a>
+                    <a href="#download" class="footer-link">Download</a>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">Support</h6>
+                    <a href="mailto:support@localghost.store" class="footer-link">Contact</a>
+                    <a href="https://github.com/localghost/Polter/issues" class="footer-link">Help Center</a>
+                    <a href="https://github.com/localghost/Polter" class="footer-link">GitHub</a>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">Legal</h6>
+                    <a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>
+                    <a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>
+                    <a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#refundModal">Refund Policy</a>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="footer-heading">LocalGhost</h6>
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="https://thelocalghost.myshopify.com/" class="footer-link">Design Shop</a>
+                    <a href="index.html#about" class="footer-link">About</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LocalGhost. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#refundModal">Refunds</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Terms of Service</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="legal-content">
+                        <p><strong>Polter File Automation</strong><br>
+                        <strong>Last Updated:</strong> January 2025</p>
+
+                        <h2>1. Acceptance of Terms</h2>
+                        <p>By downloading, installing, or using Polter File Automation ("Polter", "the Software", "the App"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Software.</p>
+
+                        <h2>2. License Grant</h2>
+                        <p>Subject to these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to use the Software for personal or commercial purposes on devices you own or control.</p>
+
+                        <h3>You May:</h3>
+                        <ul>
+                            <li>Install and use the Software on multiple devices you own</li>
+                            <li>Create and configure file automation rules</li>
+                            <li>Use the Software for personal and business file organization</li>
+                            <li>Modify the Software for personal use (if source code is available)</li>
+                        </ul>
+
+                        <h3>You May Not:</h3>
+                        <ul>
+                            <li>Redistribute, sell, or sublicense the Software without permission</li>
+                            <li>Use the Software for any illegal purposes</li>
+                            <li>Reverse engineer the Software (except where permitted by law)</li>
+                            <li>Remove or alter any proprietary notices or labels</li>
+                        </ul>
+
+                        <h2>3. Software Functionality</h2>
+                        <h3>3.1 File Operations</h3>
+                        <p>Polter performs automated file operations including moving, copying, renaming, and deleting files (when explicitly configured).</p>
+                        <p><strong>WARNING:</strong> File operations are permanent. Deleted files may not be recoverable. Use caution when configuring delete rules.</p>
+
+                        <h3>3.2 AI Features (Optional)</h3>
+                        <p>The Software may include optional AI-powered features that convert natural language to automation rules. These features require third-party API keys (OpenAI, Anthropic, or local Ollama). You are responsible for obtaining and paying for your own API access.</p>
+
+                        <h2>4. User Responsibilities</h2>
+                        <p>You are solely responsible for configuring rules correctly and safely, testing rules before enabling them, backing up important files, and monitoring automated operations.</p>
+
+                        <h2>5. Disclaimers</h2>
+                        <p>THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.</p>
+
+                        <h2>6. Limitation of Liability</h2>
+                        <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL WE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF DATA OR FILES.</p>
+
+                        <h2>7. Contact</h2>
+                        <p>For questions about these Terms, please contact us at <a href="mailto:support@localghost.store">support@localghost.store</a> or open an issue on our GitHub repository.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="legal-content">
+                        <p><strong>Polter File Automation</strong><br>
+                        <strong>Last Updated:</strong> January 2025</p>
+
+                        <h2>Overview</h2>
+                        <p>Polter File Automation ("Polter", "we", "our", or "the app") is a desktop application that helps you automate file organization on your computer. This Privacy Policy explains how we handle your information.</p>
+
+                        <h2>Information We Collect</h2>
+
+                        <h3>Local Data (Stored on Your Computer)</h3>
+                        <ul>
+                            <li><strong>File paths and names:</strong> The app monitors folders you specify and processes files according to your rules. File paths and names are stored locally in a SQLite database.</li>
+                            <li><strong>Activity logs:</strong> Records of file operations performed by the app are stored locally.</li>
+                            <li><strong>Application settings:</strong> Your preferences and rule configurations are stored locally.</li>
+                            <li><strong>AI provider API keys:</strong> If you use third-party AI providers, your API keys are stored locally on your device.</li>
+                        </ul>
+
+                        <h3>Data Sent to Third Parties</h3>
+                        <p><strong>AI Services (Optional):</strong> If you enable AI-powered rule generation, natural language prompts and file paths (not file contents) may be sent to your chosen AI provider (OpenAI, Anthropic, or local Ollama).</p>
+                        <p><strong>Error Reporting (Optional):</strong> If error reporting is enabled, application errors and system information may be collected. No file contents or personal files are included.</p>
+
+                        <h3>Data We Do NOT Collect</h3>
+                        <ul>
+                            <li><strong>File contents:</strong> We never read, analyze, or transmit the contents of your files</li>
+                            <li><strong>Personal information:</strong> We do not collect names, email addresses, or other PII</li>
+                            <li><strong>Usage analytics:</strong> We do not track feature usage or behavior patterns</li>
+                            <li><strong>Location data:</strong> We do not collect location information</li>
+                        </ul>
+
+                        <h2>Data Storage and Security</h2>
+                        <p>All application data is stored locally on your computer. Database files are stored in your user data directory. We recommend keeping your configuration files secure.</p>
+
+                        <h2>Data Sharing</h2>
+                        <p>We do not sell, rent, or share your data with third parties for marketing purposes.</p>
+
+                        <h2>Your Rights and Choices</h2>
+                        <p>All data is stored locally - delete the app and its data folder to remove all data. AI features and error reporting can be disabled.</p>
+
+                        <h2>Contact</h2>
+                        <p>For privacy-related questions, please contact us at <a href="mailto:support@localghost.store">support@localghost.store</a>.</p>
+
+                        <h2>Summary</h2>
+                        <table>
+                            <tr>
+                                <th>Data Type</th>
+                                <th>Stored Locally</th>
+                                <th>Sent Externally</th>
+                            </tr>
+                            <tr>
+                                <td>File paths/names</td>
+                                <td>Yes</td>
+                                <td>Only if AI enabled</td>
+                            </tr>
+                            <tr>
+                                <td>File contents</td>
+                                <td>No</td>
+                                <td>Never</td>
+                            </tr>
+                            <tr>
+                                <td>Activity logs</td>
+                                <td>Yes</td>
+                                <td>Only if AI enabled</td>
+                            </tr>
+                            <tr>
+                                <td>Settings</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <td>Crash reports</td>
+                                <td>No</td>
+                                <td>Only if Sentry enabled</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refund Policy Modal -->
+    <div class="modal fade" id="refundModal" tabindex="-1" aria-labelledby="refundModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="refundModalLabel">Refund Policy</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="legal-content">
+                        <p><strong>Polter File Automation</strong><br>
+                        <strong>Last Updated:</strong> January 2025</p>
+
+                        <h2>30-Day Money-Back Guarantee</h2>
+                        <p>We want you to be completely satisfied with Polter. If you're not happy with your purchase for any reason, we offer a full refund within 30 days of your purchase date.</p>
+
+                        <h2>How to Request a Refund</h2>
+                        <p>To request a refund, please contact us at <a href="mailto:support@localghost.store">support@localghost.store</a> with:</p>
+                        <ul>
+                            <li>Your order number or the email address used for purchase</li>
+                            <li>The reason for your refund request (optional, but helps us improve)</li>
+                        </ul>
+
+                        <h2>Refund Processing</h2>
+                        <ul>
+                            <li>Refunds are typically processed within 5-10 business days</li>
+                            <li>The refund will be credited to the original payment method</li>
+                            <li>Upon refund, your license key will be deactivated</li>
+                        </ul>
+
+                        <h2>What Happens After a Refund</h2>
+                        <p>After receiving a refund:</p>
+                        <ul>
+                            <li>Your license key will be deactivated</li>
+                            <li>You will no longer receive updates or support</li>
+                            <li>You should uninstall the software from your devices</li>
+                        </ul>
+
+                        <h2>Exceptions</h2>
+                        <p>Refunds may not be available for:</p>
+                        <ul>
+                            <li>Purchases made more than 30 days ago</li>
+                            <li>Licenses obtained through promotional giveaways</li>
+                            <li>Cases of license abuse or fraud</li>
+                        </ul>
+
+                        <h2>Contact Us</h2>
+                        <p>If you have any questions about our refund policy, please contact us:</p>
+                        <ul>
+                            <li>Email: <a href="mailto:support@localghost.store">support@localghost.store</a></li>
+                            <li>GitHub: <a href="https://github.com/localghost/Polter/issues">Open an issue</a></li>
+                        </ul>
+
+                        <p class="mt-4"><strong>We appreciate your business and are committed to your satisfaction.</strong></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Smooth scrolling for anchor links -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && !href.includes('Modal') && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
