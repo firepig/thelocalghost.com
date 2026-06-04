@@ -27,6 +27,7 @@
             --lg-text: #ffffff;
             --lg-text-muted: #a0a0a0;
             --lg-border: #333333;
+            --lg-focus: rgba(252, 228, 119, 0.25);
         }
 
         * {
@@ -155,6 +156,30 @@
             border-color: var(--lg-accent);
             color: var(--lg-accent);
             background: transparent;
+        }
+
+        /* Global focus ring — override Bootstrap's blue */
+        *:focus, *:focus-visible {
+            outline: none !important;
+            box-shadow: 0 0 0 0.2rem var(--lg-focus) !important;
+        }
+
+        /* Form inputs */
+        .lg-input {
+            background-color: var(--lg-bg-elevated);
+            border: 1px solid var(--lg-border);
+            color: var(--lg-text);
+            border-radius: 0.5rem;
+        }
+
+        .lg-input::placeholder {
+            color: var(--lg-text-muted);
+        }
+
+        .lg-input:focus {
+            background-color: var(--lg-bg-elevated);
+            border-color: var(--lg-accent);
+            color: var(--lg-text);
         }
 
         /* Product Cards */
@@ -518,7 +543,7 @@
                         <p>Stay in the loop on upcoming tools and releases. Small, focused apps that do one thing really well — straight to your inbox.</p>
                         <form onsubmit="handleMailingListSubmit(event)" class="mt-3">
                             <div class="input-group">
-                                <input type="email" id="mailingEmail" class="form-control" placeholder="your@email.com" required style="background:var(--lg-bg-elevated); border-color:var(--lg-border); color:var(--lg-text);">
+                                <input type="email" id="mailingEmail" class="form-control lg-input" placeholder="your@email.com" required>
                                 <button class="btn btn-accent" type="submit" style="color:#000;">Subscribe</button>
                             </div>
                             <p id="mailingMsg" style="display:none; font-size:0.85rem; margin-top:0.5rem; color:var(--lg-accent);">You're on the list — we'll be in touch.</p>

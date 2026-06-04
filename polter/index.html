@@ -28,6 +28,7 @@
             --lg-text-muted: #a0a0a0;
             --lg-border: #333333;
             --lg-success: #4ade80;
+            --lg-focus: rgba(252, 228, 119, 0.25);
         }
 
         * {
@@ -103,6 +104,30 @@
             border-color: var(--lg-accent);
             color: var(--lg-accent);
             background: transparent;
+        }
+
+        /* Global focus ring — override Bootstrap's blue */
+        *:focus, *:focus-visible {
+            outline: none !important;
+            box-shadow: 0 0 0 0.2rem var(--lg-focus) !important;
+        }
+
+        /* Form inputs */
+        .lg-input {
+            background-color: var(--lg-bg-elevated);
+            border: 1px solid var(--lg-border);
+            color: var(--lg-text);
+            border-radius: 0.5rem;
+        }
+
+        .lg-input::placeholder {
+            color: var(--lg-text-muted);
+        }
+
+        .lg-input:focus {
+            background-color: var(--lg-bg-elevated);
+            border-color: var(--lg-accent);
+            color: var(--lg-text);
         }
 
         /* Hero Section */
