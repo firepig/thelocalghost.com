@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#0d0d0d"/>
+
+  <!-- Circuit traces -->
+  <!-- Top center -->
+  <line x1="100" y1="68" x2="100" y2="42" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="100" y1="52" x2="75"  y2="52" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="100" y1="42" x2="125" y2="42" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="75"  y1="52" x2="75"  y2="38" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="75"  y1="38" x2="55"  y2="38" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="125" y1="42" x2="125" y2="28" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="125" y1="28" x2="145" y2="28" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <circle cx="100" cy="52" r="3" fill="white" opacity="0.85"/>
+  <circle cx="75"  cy="52" r="3" fill="white" opacity="0.85"/>
+  <circle cx="75"  cy="38" r="3" fill="white" opacity="0.85"/>
+  <circle cx="55"  cy="38" r="3" fill="white" opacity="0.85"/>
+  <circle cx="100" cy="42" r="3" fill="white" opacity="0.85"/>
+  <circle cx="125" cy="42" r="3" fill="white" opacity="0.85"/>
+  <circle cx="125" cy="28" r="3" fill="white" opacity="0.85"/>
+  <circle cx="145" cy="28" r="3" fill="white" opacity="0.85"/>
+
+  <!-- Left traces -->
+  <line x1="65"  y1="112" x2="38" y2="112" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="38"  y1="112" x2="38" y2="90"  stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="38"  y1="90"  x2="20" y2="90"  stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="38"  y1="112" x2="38" y2="132" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="38"  y1="132" x2="22" y2="132" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <circle cx="38" cy="112" r="3" fill="white" opacity="0.85"/>
+  <circle cx="38" cy="90"  r="3" fill="white" opacity="0.85"/>
+  <circle cx="20" cy="90"  r="3" fill="white" opacity="0.85"/>
+  <circle cx="38" cy="132" r="3" fill="white" opacity="0.85"/>
+  <circle cx="22" cy="132" r="3" fill="white" opacity="0.85"/>
+
+  <!-- Right traces -->
+  <line x1="135" y1="112" x2="162" y2="112" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="162" y1="112" x2="162" y2="90"  stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="162" y1="90"  x2="180" y2="90"  stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="162" y1="112" x2="162" y2="132" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="162" y1="132" x2="178" y2="132" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <circle cx="162" cy="112" r="3" fill="white" opacity="0.85"/>
+  <circle cx="162" cy="90"  r="3" fill="white" opacity="0.85"/>
+  <circle cx="180" cy="90"  r="3" fill="white" opacity="0.85"/>
+  <circle cx="162" cy="132" r="3" fill="white" opacity="0.85"/>
+  <circle cx="178" cy="132" r="3" fill="white" opacity="0.85"/>
+
+  <!-- Bottom-left trace -->
+  <line x1="82" y1="155" x2="82" y2="172" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="82" y1="172" x2="62" y2="172" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <circle cx="82" cy="172" r="3" fill="white" opacity="0.85"/>
+  <circle cx="62" cy="172" r="3" fill="white" opacity="0.85"/>
+
+  <!-- Bottom-right trace -->
+  <line x1="118" y1="155" x2="118" y2="172" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <line x1="118" y1="172" x2="138" y2="172" stroke="white" stroke-width="1.8" opacity="0.85"/>
+  <circle cx="118" cy="172" r="3" fill="white" opacity="0.85"/>
+  <circle cx="138" cy="172" r="3" fill="white" opacity="0.85"/>
+
+  <!-- Ghost body -->
+  <path d="
+    M 65 138
+    C 65 153 75 158 84 151
+    C 93 144 93 138 100 138
+    C 107 138 107 144 116 151
+    C 125 158 135 153 135 138
+    L 135 105
+    A 35 35 0 0 0 65 105
+    Z"
+    fill="white"/>
+
+  <!-- Eyes -->
+  <circle cx="85"  cy="112" r="6.5" fill="#0d0d0d"/>
+  <circle cx="115" cy="112" r="6.5" fill="#0d0d0d"/>
+  <!-- Eye highlights -->
+  <circle cx="87"  cy="109" r="2"   fill="white" opacity="0.5"/>
+  <circle cx="117" cy="109" r="2"   fill="white" opacity="0.5"/>
+</svg>
