@@ -25,5 +25,4 @@ jobs:
             **/.git*/**
             **/.github/**
             **/node_modules/**
-            polter/**
             README.md
