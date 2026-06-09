@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service — Polter</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lg-bg-dark: #121212;
+            --lg-bg-card: #1a1a1a;
+            --lg-bg-elevated: #252225;
+            --lg-accent: #FCE477;
+            --lg-accent-hover: #fdd835;
+            --lg-text: #ffffff;
+            --lg-text-muted: #a0a0a0;
+            --lg-border: #333333;
+            --lg-focus: rgba(252, 228, 119, 0.25);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--lg-bg-dark);
+            color: var(--lg-text);
+            line-height: 1.6;
+        }
+        *:focus, *:focus-visible {
+            outline: none !important;
+            box-shadow: 0 0 0 0.2rem var(--lg-focus) !important;
+        }
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--lg-border);
+            padding: 1rem 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--lg-text) !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-link {
+            color: var(--lg-text-muted) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover { color: var(--lg-accent) !important; }
+        .legal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 1rem 4rem;
+        }
+        .legal-container h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .legal-container .last-updated {
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+        }
+        .legal-container h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--lg-accent);
+        }
+        .legal-container h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--lg-text-muted);
+        }
+        .legal-container p, .legal-container li {
+            color: var(--lg-text-muted);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+        }
+        .legal-container ul {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .legal-container a {
+            color: var(--lg-accent);
+        }
+        footer {
+            background-color: var(--lg-bg-dark);
+            padding: 2rem 0;
+            border-top: 1px solid var(--lg-border);
+            text-align: center;
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+        }
+        footer a {
+            color: var(--lg-text-muted);
+            text-decoration: none;
+        }
+        footer a:hover { color: var(--lg-accent); }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="../logo-icon.png" alt="LocalGhost" style="width:28px;height:28px;">
+                <span>Polter</span>
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">← Back to Polter</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="legal-container">
+        <h1>Terms of Service</h1>
+        <p class="last-updated">Polter File Automation — Last Updated: January 2025</p>
+
+        <h2>1. Acceptance of Terms</h2>
+        <p>By downloading, installing, or using Polter File Automation ("Polter", "the Software", "the App"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Software.</p>
+
+        <h2>2. License Grant</h2>
+        <p>Subject to these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to use the Software for personal or commercial purposes on devices you own or control.</p>
+
+        <h3>You May:</h3>
+        <ul>
+            <li>Install and use the Software on multiple devices you own</li>
+            <li>Create and configure file automation rules</li>
+            <li>Use the Software for personal and business file organization</li>
+            <li>Modify the Software for personal use (if source code is available)</li>
+        </ul>
+
+        <h3>You May Not:</h3>
+        <ul>
+            <li>Redistribute, sell, or sublicense the Software without permission</li>
+            <li>Use the Software for any illegal purposes</li>
+            <li>Reverse engineer the Software (except where permitted by law)</li>
+            <li>Remove or alter any proprietary notices or labels</li>
+        </ul>
+
+        <h2>3. Software Functionality</h2>
+        <h3>3.1 File Operations</h3>
+        <p>Polter performs automated file operations including moving, copying, renaming, and deleting files (when explicitly configured).</p>
+        <p><strong style="color: var(--lg-accent);">WARNING:</strong> File operations are permanent. Deleted files may not be recoverable. Use caution when configuring delete rules.</p>
+
+        <h3>3.2 AI Features (Optional)</h3>
+        <p>The Software may include optional AI-powered features that convert natural language to automation rules. These features require third-party API keys (OpenAI, Anthropic, or local Ollama). You are responsible for obtaining and paying for your own API access.</p>
+
+        <h2>4. User Responsibilities</h2>
+        <p>You are solely responsible for configuring rules correctly and safely, testing rules before enabling them, backing up important files, and monitoring automated operations.</p>
+
+        <h2>5. Disclaimers</h2>
+        <p>THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.</p>
+
+        <h2>6. Limitation of Liability</h2>
+        <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL WE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF DATA OR FILES.</p>
+
+        <h2>7. Contact</h2>
+        <p>For questions about these Terms, please contact us at <a href="mailto:support@localghost.store">support@localghost.store</a> or <a href="https://github.com/firepig/Polter/issues">open an issue</a> on our GitHub repository.</p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 LocalGhost. All rights reserved. &nbsp;|&nbsp; <a href="index.html">Polter Home</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="refunds.html">Refund Policy</a></p>
+        </div>
+    </footer>
+</body>
+</html>

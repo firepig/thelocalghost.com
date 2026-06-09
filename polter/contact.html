@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Polter</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lg-bg-dark: #121212;
+            --lg-bg-card: #1a1a1a;
+            --lg-bg-elevated: #252225;
+            --lg-accent: #FCE477;
+            --lg-accent-hover: #fdd835;
+            --lg-text: #ffffff;
+            --lg-text-muted: #a0a0a0;
+            --lg-border: #333333;
+            --lg-success: #4ade80;
+            --lg-focus: rgba(252, 228, 119, 0.25);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--lg-bg-dark);
+            color: var(--lg-text);
+            line-height: 1.6;
+        }
+        *:focus, *:focus-visible {
+            outline: none !important;
+            box-shadow: 0 0 0 0.2rem var(--lg-focus) !important;
+        }
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--lg-border);
+            padding: 1rem 0;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--lg-text) !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-link {
+            color: var(--lg-text-muted) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover { color: var(--lg-accent) !important; }
+
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 8rem 1rem 4rem;
+        }
+        .contact-container h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .contact-container .subtitle {
+            color: var(--lg-text-muted);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-card {
+            background-color: var(--lg-bg-card);
+            border: 1px solid var(--lg-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .contact-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .contact-card p {
+            color: var(--lg-text-muted);
+            font-size: 0.9375rem;
+            margin-bottom: 0;
+        }
+
+        .lg-input, .lg-textarea {
+            background-color: var(--lg-bg-elevated);
+            border: 1px solid var(--lg-border);
+            color: var(--lg-text);
+            border-radius: 0.5rem;
+            width: 100%;
+        }
+        .lg-input {
+            padding: 0.75rem 1rem;
+            font-size: 0.9375rem;
+        }
+        .lg-textarea {
+            padding: 0.75rem 1rem;
+            font-size: 0.9375rem;
+            min-height: 140px;
+            resize: vertical;
+        }
+        .lg-input::placeholder, .lg-textarea::placeholder {
+            color: var(--lg-text-muted);
+        }
+        .lg-input:focus, .lg-textarea:focus {
+            border-color: var(--lg-accent);
+            background-color: var(--lg-bg-elevated);
+            color: var(--lg-text);
+        }
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.375rem;
+            color: var(--lg-text);
+        }
+        .btn-accent {
+            background-color: var(--lg-accent);
+            color: var(--lg-bg-dark);
+            border: none;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-accent:hover {
+            background-color: var(--lg-accent-hover);
+            color: var(--lg-bg-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(252, 228, 119, 0.25);
+        }
+
+        .fallback-box {
+            background-color: var(--lg-bg-elevated);
+            border: 1px solid var(--lg-border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .fallback-box i {
+            font-size: 1.5rem;
+            color: var(--lg-accent);
+            margin-bottom: 0.5rem;
+        }
+        .fallback-box .email-display {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--lg-accent);
+            word-break: break-all;
+        }
+        .fallback-box p {
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+
+        .alternative-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .alt-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--lg-text-muted);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: color 0.2s ease;
+        }
+        .alt-link:hover { color: var(--lg-accent); }
+        .alt-link i { font-size: 1.25rem; }
+
+        footer {
+            background-color: var(--lg-bg-dark);
+            padding: 2rem 0;
+            border-top: 1px solid var(--lg-border);
+            text-align: center;
+            color: var(--lg-text-muted);
+            font-size: 0.875rem;
+        }
+        footer a {
+            color: var(--lg-text-muted);
+            text-decoration: none;
+        }
+        footer a:hover { color: var(--lg-accent); }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="../logo-icon.png" alt="LocalGhost" style="width:28px;height:28px;">
+                <span>Polter</span>
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">← Back to Polter</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <p class="subtitle">Have a question, need help, or want to share feedback? We'd love to hear from you.</p>
+
+        <!-- Contact Form -->
+        <div class="contact-card">
+            <h3>Send us a message</h3>
+            <p style="margin-bottom:1.5rem;">Fill out the form below and we'll get back to you as soon as possible.</p>
+
+            <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" id="name" name="name" class="lg-input" placeholder="Jane Doe" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="lg-input" placeholder="jane@example.com" required>
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" id="subject" name="subject" class="lg-input" placeholder="What's this about?" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" class="lg-textarea" placeholder="Tell us what's on your mind..." required></textarea>
+                </div>
+                <button type="submit" class="btn-accent">
+                    <i class="bi bi-send-fill me-2"></i>Send Message
+                </button>
+            </form>
+        </div>
+
+        <!-- Fallback: Direct email -->
+        <div class="fallback-box">
+            <i class="bi bi-envelope-fill d-block"></i>
+            <p style="color: var(--lg-text-muted); font-size: 0.875rem; margin-bottom: 0.25rem;">No mail client? Copy our address:</p>
+            <span class="email-display">support@localghost.store</span>
+            <p>You can also reach us directly at the email address above. We typically respond within 24 hours.</p>
+        </div>
+
+        <!-- Alternative contact methods -->
+        <div class="alternative-links">
+            <a href="https://github.com/firepig/Polter/issues" class="alt-link" target="_blank" rel="noopener">
+                <i class="bi bi-github"></i> GitHub Issues
+            </a>
+            <a href="mailto:support@localghost.store" class="alt-link">
+                <i class="bi bi-envelope"></i> Open Mail Client
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 LocalGhost. All rights reserved. &nbsp;|&nbsp; <a href="index.html">Polter Home</a> &nbsp;|&nbsp; <a href="terms.html">Terms</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy</a></p>
+        </div>
+    </footer>
+</body>
+</html>
